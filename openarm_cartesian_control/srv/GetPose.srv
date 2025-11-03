@@ -1,0 +1,6 @@
+string base_frame
+string tip_frame
+---
+geometry_msgs/PoseStamped pose
+bool success
+string message

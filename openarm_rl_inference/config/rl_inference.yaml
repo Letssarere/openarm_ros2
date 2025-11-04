@@ -1,0 +1,38 @@
+openarm_rl_inference:
+  ros__parameters:
+    model:
+      path: "models/best_agent.pt"
+      device: "cpu"
+      deterministic: true
+    inference:
+      rate_hz: 30.0
+      action_scale: 0.5
+      ema_alpha: 0.2
+      step_delta_limit: 0.05
+      offset_mode: "current"
+    controller:
+      name: "left_joint_trajectory_controller"
+      topic: "/left_joint_trajectory_controller/joint_trajectory"
+    joints:
+      names:
+        - "openarm_left_joint1"
+        - "openarm_left_joint2"
+        - "openarm_left_joint3"
+        - "openarm_left_joint4"
+        - "openarm_left_joint5"
+        - "openarm_left_joint6"
+        - "openarm_left_joint7"
+      limits:
+        lower: [-3.490659, -3.316125, -1.570796, 0.0, -1.570796, -0.785398, -1.570796]
+        upper: [1.396263, 0.174533, 1.570796, 2.443461, 1.570796, 0.785398, 1.570796]
+    pose:
+      frame: "openarm_left_link0"
+      topic: "/left_pose_command"
+    boot:
+      warmup_zero_actions: 3
+      wait_for_topics_sec: 5.0
+    scaler:
+      fallback_path: ""
+    staleness:
+      pose_timeout_sec: 0.5
+      joint_timeout_sec: 0.5
